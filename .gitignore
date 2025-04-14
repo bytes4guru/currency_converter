@@ -1,0 +1,73 @@
+## Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Ignore build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+TestResults/
+out/
+
+## Ignore .NET Core generated files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Ignore Rider IDE
+.idea/
+
+## Ignore NuGet packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+*.nuspec
+
+## Ignore ASP.NET temporary files
+**/wwwroot/dist/
+**/wwwroot/node_modules/
+
+## Ignore Web user secrets (optional - if using)
+secrets.json
+*.secret.json
+
+## Ignore logs
+*.log
+logs/
+log/
+*.log.*
+
+## Ignore environment files
+.env
+.env.*
+
+## Ignore ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Ignore Azure Pipelines
+.azdo/
+.azure-pipelines/
+
+## Ignore JetBrains Rider
+.idea/
+*.sln.iml
+
+## Ignore OpenTelemetry artifacts (optional)
+otel_collector_config.yaml
+otel-collector.log
+
+## Ignore macOS and Linux files
+.DS_Store
+*.swp
+*.swo
+
+## Ignore local config
+appsettings.Development.json
+appsettings.Local.json
