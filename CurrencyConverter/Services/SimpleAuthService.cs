@@ -1,4 +1,5 @@
 ﻿using CurrencyConverter.Models;
+using CurrencyConverter.DTOs;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,13 +20,13 @@ namespace CurrencyConverter.Services
             _logger = logger;
             _securityKey = securrityKey;
         }
-        public string Authenticate(string username, string password)
+        public string Authenticate(LoginRequestDto dto)
         {
-            var user = _users.FirstOrDefault<User>(p=>(p.UserName == username && p.Password == password));
+            var user = _users.FirstOrDefault<User>(p=>(p.UserName == dto.Username && p.Password == dto.Password));
             if (user == null) {
                 throw new ArgumentException("username or pawword not correct");
             }
-            return GenerateJwtToken(username, user.Role);
+            return GenerateJwtToken(dto.Username, user.Role);
         }
 
         private string GenerateJwtToken(string username, string role)

@@ -3,7 +3,7 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using CurrencyConverter.Services;
 using CurrencyConverter;
-using CurrencyConverter.ViewModels;
+using CurrencyConverter.DTOs;
 
 public class AuthControllerTests
 {
@@ -20,11 +20,11 @@ public class AuthControllerTests
     public void Login_ReturnsOk_WithToken()
     {
         // Arrange
-        var loginRequest = new LoginRequest { Username = "admin", Password = "1234" };
+        var loginRequest = new LoginRequestDto { Username = "admin", Password = "1234" };
         var expectedToken = "mock-jwt-token";
 
         _mockAuthService
-            .Setup(s => s.Authenticate(loginRequest.Username, loginRequest.Password))
+            .Setup(s => s.Authenticate(loginRequest))
             .Returns(expectedToken);
 
         // Act
@@ -32,7 +32,7 @@ public class AuthControllerTests
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var value = Assert.IsType<LoginResponse>(okResult.Value);  // Assert as LoginResponse type
+        var value = Assert.IsType<LoginResponseDto>(okResult.Value);  // Assert as LoginResponse type
         Assert.Equal(expectedToken, value.Token);  // Assert that the returned token matches
     }
 
@@ -40,10 +40,10 @@ public class AuthControllerTests
     public void Login_ReturnsBadRequest_WithInvalidCredentials()
     {
         // Arrange
-        var loginRequest = new LoginRequest { Username = "invalid", Password = "wrongpassword" };
+        var loginRequest = new LoginRequestDto { Username = "invalid", Password = "wrongpassword" };
 
         _mockAuthService
-            .Setup(s => s.Authenticate(loginRequest.Username, loginRequest.Password))
+            .Setup(s => s.Authenticate(loginRequest))
             .Throws(new ArgumentException("Invalid credentials"));
 
         // Act

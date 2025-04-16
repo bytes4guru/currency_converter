@@ -1,5 +1,6 @@
 ﻿using CurrencyConverter.Models;
 using CurrencyConverter.Services;
+using CurrencyConverter.DTOs;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
@@ -26,11 +27,10 @@ namespace CurrencyConverter.Test.Services
         public void Authenticate_ValidCredentials_ReturnsToken()
         {
             // Arrange
-            var username = "admin";
-            var password = "1234";
+            var loginRequestDto = new LoginRequestDto() { Username = "admin", Password = "1234" };
 
             // Act
-            var token = _authService.Authenticate(username, password);
+            var token = _authService.Authenticate(loginRequestDto);
 
             // Assert
             Assert.False(string.IsNullOrWhiteSpace(token));
@@ -40,11 +40,10 @@ namespace CurrencyConverter.Test.Services
         public void Authenticate_InvalidCredentials_ThrowsException()
         {
             // Arrange
-            var username = "admin";
-            var password = "wrongpassword";
+            var loginRequestDto = new LoginRequestDto() { Username = "admin", Password = "wrong password" };
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => _authService.Authenticate(username, password));
+            var ex = Assert.Throws<ArgumentException>(() => _authService.Authenticate(loginRequestDto));
             Assert.Equal("username or pawword not correct", ex.Message);
         }
 
@@ -52,11 +51,10 @@ namespace CurrencyConverter.Test.Services
         public void Authenticate_GeneratesJwt_WithCorrectClaims()
         {
             // Arrange
-            var username = "user";
-            var password = "1234";
+            var loginRequestDto = new LoginRequestDto() { Username = "user", Password = "1234" };
 
             // Act
-            var token = _authService.Authenticate(username, password);
+            var token = _authService.Authenticate(loginRequestDto);
 
             // Decode token
             var handler = new JwtSecurityTokenHandler();

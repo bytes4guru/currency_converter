@@ -214,21 +214,34 @@ var assemblies = [
     "name": "CurrencyConverter",
     "classes": [
       { "name": "AuthController", "rp": "CurrencyConverter_AuthController.html", "cl": 12, "ucl": 0, "cal": 12, "tl": 29, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Configurations.ExchangeRateApiSettings", "rp": "CurrencyConverter_ExchangeRateApiSettings.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 22, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Configurations.ExcludedCurrenciesSettings", "rp": "CurrencyConverter_ExcludedCurrenciesSettings.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Configurations.ProviderSettings", "rp": "CurrencyConverter_ProviderSettings.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 22, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "CurrencyConverter.Conventions.GlobalRoutePrefixConvention", "rp": "CurrencyConverter_GlobalRoutePrefixConvention.html", "cl": 16, "ucl": 0, "cal": 16, "tl": 30, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.ConvertCurrencyRequestDto", "rp": "CurrencyConverter_ConvertCurrencyRequestDto.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.ConvertCurrencyResponseDto", "rp": "CurrencyConverter_ConvertCurrencyResponseDto.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.GetLatestRateRequestDto", "rp": "CurrencyConverter_GetLatestRateRequestDto.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.HistoricalRatesRequestDto", "rp": "CurrencyConverter_HistoricalRatesRequestDto.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.HistoricalRatesResponseDto", "rp": "CurrencyConverter_HistoricalRatesResponseDto.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.LatestExchangeRateResponseDto", "rp": "CurrencyConverter_LatestExchangeRateResponseDto.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.LoginRequestDto", "rp": "CurrencyConverter_LoginRequestDto.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.DTOs.LoginResponseDto", "rp": "CurrencyConverter_LoginResponseDto.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "CurrencyConverter.Exceptions.ExchangeRateApiException", "rp": "CurrencyConverter_ExchangeRateApiException.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.Helpers.HttpClientExtensions", "rp": "CurrencyConverter_HttpClientExtensions.html", "cl": 48, "ucl": 12, "cal": 60, "tl": 86, "cb": 8, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Extensions.HttpClientExtensions", "rp": "CurrencyConverter_HttpClientExtensions.html", "cl": 38, "ucl": 9, "cal": 47, "tl": 86, "cb": 5, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "CurrencyConverter.Middlewares.RequestLoggingMiddleware", "rp": "CurrencyConverter_RequestLoggingMiddleware.html", "cl": 21, "ucl": 0, "cal": 21, "tl": 41, "cb": 2, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "CurrencyConverter.Models.User", "rp": "CurrencyConverter_User.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.Services.CurrencyProviderFactory", "rp": "CurrencyConverter_CurrencyProviderFactory.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 23, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.Services.FrankfurterExchangeRateService", "rp": "CurrencyConverter_FrankfurterExchangeRateService.html", "cl": 63, "ucl": 11, "cal": 74, "tl": 111, "cb": 12, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.Services.SimpleAuthService", "rp": "CurrencyConverter_SimpleAuthService.html", "cl": 28, "ucl": 0, "cal": 28, "tl": 49, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.ViewModels.ConvertCurrencyResponse", "rp": "CurrencyConverter_ConvertCurrencyResponse.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.ViewModels.ExchangeRateResponse", "rp": "CurrencyConverter_ExchangeRateResponse.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.ViewModels.HistoricalRatesResponse", "rp": "CurrencyConverter_HistoricalRatesResponse.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.ViewModels.LoginRequest", "rp": "CurrencyConverter_LoginRequest.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "CurrencyConverter.ViewModels.LoginResponse", "rp": "CurrencyConverter_LoginResponse.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "ExchangeRateController", "rp": "CurrencyConverter_ExchangeRateController.html", "cl": 31, "ucl": 1, "cal": 32, "tl": 67, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Program", "rp": "CurrencyConverter_Program.html", "cl": 143, "ucl": 2, "cal": 145, "tl": 172, "cb": 24, "tb": 46, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Porviders.ExchangeRateProviderFactory", "rp": "CurrencyConverter_ExchangeRateProviderFactory.html", "cl": 15, "ucl": 3, "cal": 18, "tl": 39, "cb": 4, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Porviders.FrankfurterProvider", "rp": "CurrencyConverter_FrankfurterProvider.html", "cl": 67, "ucl": 17, "cal": 84, "tl": 104, "cb": 9, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Services.ExchangeRateService", "rp": "CurrencyConverter_ExchangeRateService.html", "cl": 33, "ucl": 7, "cal": 40, "tl": 58, "cb": 7, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.Services.SimpleAuthService", "rp": "CurrencyConverter_SimpleAuthService.html", "cl": 28, "ucl": 0, "cal": 28, "tl": 50, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.ViewModels.ConvertCurrencyRequestDto", "rp": "CurrencyConverter_ConvertCurrencyRequestDto.2.html", "cl": 3, "ucl": 1, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.ViewModels.ConvertCurrencyResponseDto", "rp": "CurrencyConverter_ConvertCurrencyResponseDto.2.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.ViewModels.HistoricalRatesResponseDto", "rp": "CurrencyConverter_HistoricalRatesResponseDto.2.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.ViewModels.LatestExchangeRateResponseDto", "rp": "CurrencyConverter_LatestExchangeRateResponseDto.2.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.ViewModels.LoginRequestDto", "rp": "CurrencyConverter_LoginRequestDto.2.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "CurrencyConverter.ViewModels.LoginResponseDto", "rp": "CurrencyConverter_LoginResponseDto.2.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ExchangeRateController", "rp": "CurrencyConverter_ExchangeRateController.html", "cl": 46, "ucl": 1, "cal": 47, "tl": 66, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Program", "rp": "CurrencyConverter_Program.html", "cl": 142, "ucl": 2, "cal": 144, "tl": 209, "cb": 15, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -243,10 +256,16 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "CurrencyConverter", "class": "Program", "reportPath": "CurrencyConverter_Program.html", "methodName": "<Main>$(System.String[])", "methodShortName": "<Main>$(...)", "fileIndex": 0, "line": 17,
+    "assembly": "CurrencyConverter", "class": "CurrencyConverter.Porviders.FrankfurterProvider", "reportPath": "CurrencyConverter_FrankfurterProvider.html", "methodName": "GetHistoricalRatesAsync()", "methodShortName": "GetHistoricalRatesAsync()", "fileIndex": 0, "line": 62,
     "metrics": [
-      { "value": 25, "exceeded": false },
-      { "value": 24, "exceeded": true },
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "CurrencyConverter", "class": "Program", "reportPath": "CurrencyConverter_Program.html", "methodName": "CreateApp(System.String[])", "methodShortName": "CreateApp(...)", "fileIndex": 0, "line": 22,
+    "metrics": [
+      { "value": 18, "exceeded": false },
+      { "value": 18, "exceeded": true },
     ]},
 ];
 

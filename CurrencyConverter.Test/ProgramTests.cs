@@ -2,9 +2,9 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using CurrencyConverter.ViewModels;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
+using CurrencyConverter.DTOs;
 
 
 namespace CurrencyConverter.Tests
@@ -45,14 +45,14 @@ namespace CurrencyConverter.Tests
             var response = await _client.PostAsJsonAsync("/api/auth/login", loginRequest);
             response.EnsureSuccessStatusCode(); // Throw if not 2xx
 
-            var tokenResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            var tokenResponse = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
             var token = tokenResponse?.Token;
 
             Assert.NotNull(token); // Ensure we got a token back
 
             // Step 2: Use the token for an authenticated request
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var apiResponse = await _client.GetAsync("/api/exchangerate/latest?baseCurrency=USD");
+            var apiResponse = await _client.GetAsync("/api/exchangerate/latest?Base=USD");
 
             // Step 3: Assert the response status (can be OK or Forbidden based on role)
             Assert.Equal(HttpStatusCode.OK, apiResponse.StatusCode);
@@ -86,7 +86,7 @@ namespace CurrencyConverter.Tests
             var loginResponse = await _client.PostAsJsonAsync("/api/auth/login", loginRequest);
             loginResponse.EnsureSuccessStatusCode(); // Throw if not 2xx
 
-            var tokenResponse = await loginResponse.Content.ReadFromJsonAsync<LoginResponse>();
+            var tokenResponse = await loginResponse.Content.ReadFromJsonAsync<LoginResponseDto>();
             var token = tokenResponse?.Token;
 
             Assert.NotNull(token); // Ensure we got a token back
@@ -96,7 +96,7 @@ namespace CurrencyConverter.Tests
             // Make 6 requests (assuming the limit is 5 per 10 seconds based on your config)
             for (int i = 0; i < 6; i++)
             {
-                var response = await _client.GetAsync("/api/exchangerate/latest?baseCurrency=USD");
+                var response = await _client.GetAsync("/api/exchangerate/latest?Base=USD");
 
                 if (i < 4)
                 {

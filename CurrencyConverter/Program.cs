@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 using System.Text.Json;
 using OpenTelemetry.Resources;
+using CurrencyConverter.Porviders;
+using CurrencyConverter.Configurations;
 
 public partial class Program
 {
@@ -20,6 +22,13 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        var env = builder.Environment;
+
+        builder.Configuration
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables();
 
         // Logging
         builder.Host.UseSerilog((context, config) =>
@@ -28,10 +37,7 @@ public partial class Program
         });
 
         // Services
-        builder.Services.AddControllers(options =>
-        {
-            options.Conventions.Add(new GlobalRoutePrefixConvention("api"));
-        });
+        
 
         builder.Services.AddEndpointsApiExplorer();
 
@@ -61,11 +67,10 @@ public partial class Program
 
         // JWT Auth
 
-        var jwtKey = Encoding.UTF8.GetBytes(builder.Configuration["JwtIssuerOptions:SecretKey"]!);
-        var signingKey = new SymmetricSecurityKey(jwtKey);
+        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtIssuerOptions:SecretKey"]!));
 
         // Register the hashed key for reuse
-        builder.Services.AddSingleton<SecurityKey>(signingKey);
+       
 
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -88,35 +93,52 @@ public partial class Program
 
 
         // Custom Services
-        builder.Services.AddHttpClient();
+       
         builder.Services.AddMemoryCache();
-        builder.Services.AddScoped<IExchangeRateService, FrankfurterExchangeRateService>();
-        builder.Services.AddScoped<ICurrencyProviderFactory, CurrencyProviderFactory>();
-        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        builder.Services.AddTransient<IAuthService, SimpleAuthService>();
 
+        builder.Services.Configure<ExchangeRateApiSettings>(builder.Configuration.GetSection("ExchangeRateApi"));
+        builder.Services.Configure<ExcludedCurrenciesSettings>(builder.Configuration.GetSection("ExcludedCurrencies"));
+        // Bind & validate the settings
+        var exchangeRateApiSettings = builder.Configuration
+            .GetSection("ExchangeRateApi")
+            .Get<ExchangeRateApiSettings>();
 
-        builder.Services.AddHttpClient("Frankfurter", client =>
+        if (exchangeRateApiSettings == null || !exchangeRateApiSettings.Providers.Any())
         {
-            client.BaseAddress = new Uri(builder.Configuration["ExchangeRateApi:BaseUrl"]!);
-        }).AddTransientHttpErrorPolicy(policy =>
-            policy.WaitAndRetryAsync(int.Parse(builder.Configuration["ExchangeRateApi:RetryCount"]!),
-            retryAttempt => TimeSpan.FromSeconds(Math.Pow(int.Parse(builder.Configuration["ExchangeRateApi:RetryBackoffSeconds"]!), retryAttempt))))
-        .AddTransientHttpErrorPolicy(policy =>
-            policy.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+            throw new InvalidOperationException("ExchangeRateApi settings or providers are missing or empty. Please check your configuration.");
+        }
+
+       
+        foreach (var provider in exchangeRateApiSettings.Providers)
+        {
+            builder.Services.AddHttpClient(provider.Name, client =>
+            {
+                client.BaseAddress = new Uri(provider.BaseUrl);
+                client.Timeout = TimeSpan.FromSeconds(provider.TimeoutSeconds);
+            })
+            .AddTransientHttpErrorPolicy(policy =>
+                policy.WaitAndRetryAsync(
+                    provider.RetryCount,
+                    retryAttempt => TimeSpan.FromSeconds(Math.Pow(provider.RetryBackoffSeconds, retryAttempt))))
+            .AddTransientHttpErrorPolicy(policy =>
+                policy.CircuitBreakerAsync(
+                    handledEventsAllowedBeforeBreaking: provider.CircuitBreakerFailureCount,
+                    durationOfBreak: TimeSpan.FromSeconds(provider.CircuitBreakerDurationSeconds)));
+        }
+
 
 
         builder.Services.AddOpenTelemetry()
-     .WithTracing(tracerProviderBuilder =>
-     {
-         tracerProviderBuilder
-             .SetResourceBuilder(
-                 ResourceBuilder.CreateDefault()
-                     .AddService("CurrencyConverterAPI")) // Logical service name for traces
-             .AddAspNetCoreInstrumentation()
-             .AddHttpClientInstrumentation()
-             .AddConsoleExporter();
-     });
+         .WithTracing(tracerProviderBuilder =>
+         {
+             tracerProviderBuilder
+                 .SetResourceBuilder(
+                     ResourceBuilder.CreateDefault()
+                         .AddService("CurrencyConverterAPI")) // Logical service name for traces
+                 .AddAspNetCoreInstrumentation()
+                 .AddHttpClientInstrumentation()
+                 .AddConsoleExporter();
+         });
 
         builder.Services.AddRateLimiter(options =>
         {
@@ -148,6 +170,18 @@ public partial class Program
                     }));
         });
 
+        builder.Services.AddSingleton<SecurityKey>(signingKey);
+        builder.Services.AddSingleton<IExchangeRateProviderFactory, ExchangeRateProviderFactory>();
+        builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
+        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        builder.Services.AddTransient<IAuthService, SimpleAuthService>();
+        builder.Services.AddTransient<FrankfurterProvider>();
+        
+        builder.Services.AddControllers(options =>
+        {
+            options.Conventions.Add(new GlobalRoutePrefixConvention("api"));
+        });
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -164,8 +198,6 @@ public partial class Program
 
         app.MapControllers().RequireRateLimiting("PerUserPolicy");
         return app;
-
-        
     }
 
     public static void Main(string[] args)

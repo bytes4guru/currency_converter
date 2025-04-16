@@ -1,8 +1,7 @@
 using CurrencyConverter.Exceptions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CurrencyConverter.ViewModels;
+using CurrencyConverter.DTOs;
 
 [Authorize]
 [ApiController]
@@ -17,11 +16,11 @@ public class ExchangeRateController : ControllerBase
     }
     
     [HttpGet("latest")]
-    public async Task<IActionResult> GetLatestRates([FromQuery] string baseCurrency)
+    public async Task<IActionResult> GetLatestRates([FromQuery] GetLatestRateRequestDto dto)
     {
         try
         {
-            var result = await _exchangeRateService.GetLatestRatesAsync(baseCurrency);
+            var result = await _exchangeRateService.GetLatestRatesAsync(dto);
             return Ok(result);
         }
         catch (Exception ex) {
@@ -31,11 +30,11 @@ public class ExchangeRateController : ControllerBase
     }
     [Authorize(Policy = "AdminOnly")]
     [HttpGet("convert")]
-    public async Task<IActionResult> ConvertCurrency([FromQuery] string from, [FromQuery] string to, [FromQuery] decimal amount)
+    public async Task<IActionResult> ConvertCurrency([FromQuery] ConvertCurrencyRequestDto dto)
     {
         try
         {
-            var result = await _exchangeRateService.ConvertCurrencyAsync(from, to, amount);
+            var result = await _exchangeRateService.ConvertCurrencyAsync(dto);
             return Ok(result);
         }
         catch (ArgumentException ex)
@@ -49,11 +48,11 @@ public class ExchangeRateController : ControllerBase
     }
     [Authorize(Policy = "AdminOnly")]
     [HttpGet("history")]
-    public async Task<IActionResult> GetHistoricalRates([FromQuery] string baseCurrency, [FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    public async Task<IActionResult> GetHistoricalRates([FromQuery] HistoricalRatesRequestDto requestDto)
     {
         try
         {
-            var result = await _exchangeRateService.GetHistoricalRatesAsync(baseCurrency, start, end, page, pageSize);
+            var result = await _exchangeRateService.GetHistoricalRatesAsync(requestDto);
             return Ok(result);
         }
         catch (ExchangeRateApiException ex)
